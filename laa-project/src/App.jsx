@@ -16,7 +16,7 @@ import CreateProduct from "./Components/mainpages/createProduct/CreateProduct";
 import Products from "./Components/mainpages/products/Products";
 import CreateRecipe from "./Components/mainpages/createRecipe/CreateRecipe";
 import DetailProduct from "./Components/mainpages/detailProduct/DetailProduct";
-
+import AdminProfile from "./Pages/AdminProfile"
 
 
 const App = () => {
@@ -41,6 +41,7 @@ const App = () => {
         <Route path="/admin/products" element={<Products/>}/>
         <Route path="/create_recipe" element={<CreateRecipe/>}/>
         <Route path="/detail/:id" element={<DetailProduct/>}/>
+        <Route path="/admin/profile" element ={<AdminProfile/>}/>
         
       </Routes>
     </BrowserRouter>
