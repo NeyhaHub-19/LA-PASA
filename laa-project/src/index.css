@@ -1,0 +1,28 @@
+*{
+  font-family: "Open Sans", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.App{
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-shadow:  0 0 35px #eee;
+}
+
+a{
+  text-decoration: none;
+}
+
+button{
+  border: none;
+  outline: none;
+  background:  transparent;
+  cursor: pointer;
+}
+
+@import url("./Components/mainpages/categories/categories.css");
+@import url("./Components/mainpages/createProduct/createproduct.css");
+@import url("./Components/mainpages//products/product.css");
+@import url("./Components/mainpages/detailProduct/detailproduct.css");
