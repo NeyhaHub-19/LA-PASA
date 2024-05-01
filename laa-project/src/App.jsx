@@ -17,7 +17,10 @@ import Products from "./Components/mainpages/products/Products";
 import CreateRecipe from "./Components/mainpages/createRecipe/CreateRecipe";
 import DetailProduct from "./Components/mainpages/detailProduct/DetailProduct";
 import AdminProfile from "./Pages/AdminProfile"
-
+// import Profile from "./Pages/Profile"
+import UserProfile from "./Components/UserProfile";
+import NotFoundPage from  "./Pages/NotFoundPage"
+import EmailVerifyPage from "./Pages/EmailVerifyPage";
 
 const App = () => {
   return (
@@ -42,7 +45,9 @@ const App = () => {
         <Route path="/create_recipe" element={<CreateRecipe/>}/>
         <Route path="/detail/:id" element={<DetailProduct/>}/>
         <Route path="/admin/profile" element ={<AdminProfile/>}/>
-        
+        <Route path="/user/profile" element ={<UserProfile/>}/>
+        <Route path="/notfound" element ={<NotFoundPage/>}/>
+        <Route path="/emailverify" element={<EmailVerifyPage/>}/>
       </Routes>
     </BrowserRouter>
     </DataProvider>

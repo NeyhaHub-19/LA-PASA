@@ -15,8 +15,8 @@ import drm from "./image/drm.jpg";
 import whlc from "./image/whlc.jpg";
 import sprib from "./image/sprib.jpg";
 import gc from "./image/gc.jpg";
-import { Filter } from "@mui/icons-material";
-
+// import { Filter } from "@mui/icons-material";
+import page_not_found from "./image/page_not_found.webp"
 
 
 import porkribs from "./videos/pork ribs.mp4"
@@ -161,3 +161,12 @@ export const categories = [
   ]
     
     
+  export const NotFound = [
+    {
+      title:"pagenotfound",
+      desc:"notfound",
+      img:page_not_found,
+      
+    }
+
+  ]
