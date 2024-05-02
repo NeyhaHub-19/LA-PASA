@@ -9,7 +9,7 @@ function RecipeAPI(){
     useEffect(()=>{
         const getRecipes = async()=>{
             const res = await axios.get('http://localhost:8000/api/recipes')
-            setRecipes(res.data.recipe)
+            setRecipes(res.data)
         }
         getRecipes()
     },[callback])

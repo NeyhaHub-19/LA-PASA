@@ -1,12 +1,9 @@
 import React from "react";
 import Home from "./Pages/Home";
-import ProductList from "./Pages/ProductList";
-import Product from "./Pages/Product";
+
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
-import Cart from "./Pages/Cart";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 import ForgetPassWord from "./Pages/ForgetPassword";
 import ResetPasswordPage from "./Pages/ResetPasswordPage"
 import Recipe from "./Pages/Recipe";
@@ -18,9 +15,11 @@ import CreateRecipe from "./Components/mainpages/createRecipe/CreateRecipe";
 import DetailProduct from "./Components/mainpages/detailProduct/DetailProduct";
 import AdminProfile from "./Pages/AdminProfile"
 // import Profile from "./Pages/Profile"
-import UserProfile from "./Components/UserProfile";
+import UserProfile from "./Components/UserPofile/UserProfile";
 import NotFoundPage from  "./Pages/NotFoundPage"
 import EmailVerifyPage from "./Pages/EmailVerifyPage";
+import Cart from "./Components/mainpages/cart/Cart";
+import UserList from "./Components/UserList";
 
 const App = () => {
   return (
@@ -32,9 +31,7 @@ const App = () => {
           path="/login" element={<Login/>} />
         <Route
           path="/register" element ={<Register />}/>
-        <Route path="/products/:category" element={<ProductList />} />
-         <Route path="/product/:id" element={<Product/>}/>
-        <Route path="/cart" element={<Cart />} />
+       
         <Route path="/forgotpassword" element={<ForgetPassWord />} /> 
         <Route path="/resetpassword" element={<ResetPasswordPage/>}/>
         <Route path="/recipes" element={<Recipe/>} /> 
@@ -47,7 +44,8 @@ const App = () => {
         <Route path="/admin/profile" element ={<AdminProfile/>}/>
         <Route path="/user/profile" element ={<UserProfile/>}/>
         <Route path="/notfound" element ={<NotFoundPage/>}/>
-        <Route path="/emailverify" element={<EmailVerifyPage/>}/>
+        <Route path="/api/users/:id/verify/:token" element={<EmailVerifyPage/>}/>
+        <Route path="/cart" element={<Cart/>}/>
       </Routes>
     </BrowserRouter>
     </DataProvider>

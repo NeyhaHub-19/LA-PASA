@@ -6,13 +6,13 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
 dotenv.config();
-const product = require('./routes/product')
+const product = require('./routes/product');
 const upload = require('./routes/upload');
 const user = require("./routes/user");
 const category = require("./routes/category");
 const videoUpload = require("./routes/uploadVideo");
 const recipe = require("./routes/recipe");
-
+const uploadUserImage = require("./routes/uploadUserImage");
 const app = express()
 app.use(morgan('dev'))
 app.use(express.json())
@@ -30,9 +30,10 @@ app.use(fileUpload({
 app.use("/api",product);
 app.use("/api",upload);
 app.use("/api", user);
-app.use("/api", category)
-app.use("/api", videoUpload)
-app.use("/api", recipe)
+app.use("/api", category);
+app.use("/api", videoUpload);
+app.use("/api", recipe);
+app.use("/api",uploadUserImage)
 
 
 try {

@@ -1,5 +1,5 @@
 import React, {useContext, useState, useEffect} from "react";
-import {useParams} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import { GlobalState } from "../../../GlobalState";
 import ProductItem from "../../utils/productItem/ProductItem";
 import Navbar from "../../Navbar";
@@ -11,6 +11,7 @@ function DetailProduct(){
     const params = useParams()
     const state = useContext(GlobalState)
     const [products] = state.productAPI.products
+    const addToCart = state.userAPI.addToCart
     const [detailProduct, setDetailProduct] = useState([])
 
     useEffect(()=>{
@@ -33,14 +34,16 @@ function DetailProduct(){
           <h2>{detailProduct.title}</h2>
           <h6>#id: {detailProduct.product_id}</h6>
           </div>
-          <span> Rs.{detailProduct.price}</span>
-          <p>{detailProduct.desc}</p>
+          <span> ${detailProduct.price}</span>
+          <h3>{detailProduct.desc}</h3>
         <p>Sold: {detailProduct.sold}</p>
+
+        <Link to="/cart" className="cart" onClick={()=> addToCart(detailProduct)}>Add To Cart</Link>
       </div>
     </div>
 
     <div>
-     <h3>Other Products</h3>
+     <h2>Other Products</h2>
      <div className="products">
       {
         products.map(product=>{

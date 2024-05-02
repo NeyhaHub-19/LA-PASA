@@ -4,6 +4,7 @@ import axios from 'axios';
 import CategoriesAPI from './api/CategoriesAPI';
 import ProductsAPI from './api/ProductAPI';
 import RecipeAPI from './api/RecipeAPI';
+import AllUsersAPI from './api/AllUsersAPI';
 
 
 
@@ -42,7 +43,9 @@ export const DataProvider = ({children}) =>{
         userAPI: UserAPI(token), 
         categoriesAPI: CategoriesAPI(),
         productAPI: ProductsAPI(),
-        recipeAPI: RecipeAPI()
+        recipeAPI: RecipeAPI(),
+        allUsersAPI: AllUsersAPI(token)
+        
     }
 
 

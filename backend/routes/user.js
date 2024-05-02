@@ -139,6 +139,22 @@ router.get('/users/:id/verify/:token', async(req,res)=>{
         res.status(500).json({ msg: "Internal Server Error", error: err.message })
     }
 })
+router.patch('/cart',auth, async(req,res)=>{
+    try{
+        const user = await User.findById(req.user.id)
+        if(!user)return res.status(400).json({msg: "User does not exist"})
+
+        await User.findByIdAndUpdate({_id: req.user.id},{
+            cart: req.body.cart
+        })
+        return res.json({msg: "Added to cart"})
+
+    }catch(err){
+        return res.status(500).json({msg: err.message})
+
+    }
+
+})
 
 const createAccessToken = (user) =>{
     return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1d'})
@@ -209,20 +225,16 @@ router.get('/allUsers', auth, authAdmin, async(req,res)=>{
 
 router.put("/updateUser/:id", auth, async(req,res)=>{
     try{
-        const {username, password,confirmPassword} = req.body;
-        if(password === confirmPassword){
-            const hashedPassword = bcrypt.hashSync(password,12);
-            const hasedConfirmedPassword = bcrypt.hashSync(confirmPassword, 12);
+        const {username, image} = req.body;
+       
             await User.findByIdAndUpdate({_id: req.params.id},{
-            username, hashedPassword, hasedConfirmedPassword
+            username, image
         })
 
 
         res.status(200).json({msg: "User updated"});
 
-        }else{
-            res.status(400).json({msg: "Password does not match"});
-        }
+
         
     
     }catch(err){

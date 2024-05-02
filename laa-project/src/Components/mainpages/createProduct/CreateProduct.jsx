@@ -187,7 +187,7 @@ function CreateProduct(){
                     <select name='category' value={product.category} onChange={handleChangeInput}>
                     <option value="">Please select a category</option>
                  {categories.map(category => (
-                 <option value={category.name} key={category._id}>
+                 <option value={category._id} key={category._id}>
                   {category.name}
                    </option>
                  ))}

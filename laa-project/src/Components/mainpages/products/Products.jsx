@@ -3,9 +3,8 @@ import ProductItem from '../../utils/productItem/ProductItem'
 import { GlobalState } from '../../../GlobalState'
 import Loading from '../../utils/loading/Loading'
 import axios from 'axios'
-import Navbar from '../../Navbar'
-import { Footer } from '../../Footer'
-import Announcement from '../../Announcement'
+import Filters from './Filter'
+import LoadMore from './LoadMore'
 
 
 function Products() {
@@ -16,10 +15,6 @@ function Products() {
   const [callback, setCallback] = state.productAPI.callback
   const [loading, setLoading] = useState(false)
   const [isCheck, setIsCheck] = useState(false)
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 2;
-  const totalPages = Math.ceil(10 / itemsPerPage);
-
 
   const handleCheck = (id)=>{
     products.forEach(product=>{
@@ -67,40 +62,10 @@ function Products() {
   }
 
   if(loading) return <div><Loading/></div>
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
-
-  const renderPagination = () => {
-    const pages = [];
-    for (let i = 1; i <= totalPages; i++) {
-      pages.push(
-        <button
-          key={i}
-          onClick={() => handlePageChange(i)}
-          style={{
-            background: currentPage === i ? '#fff' : '#006D5B',
-            color: currentPage === i ? '#000' : '#fff',
-            border: '1px solid #ccc',
-            padding: '5px 10px',
-
-            borderRadius: '5px',
-            cursor: 'pointer',
-            margin: '0 5px'
-          }}
-        >
-          {i}
-        </button>
-      );
-    }
-    return pages;
-};
-
 
   return (
     <>
-    <Announcement/>
-    <Navbar/>
+    <Filters/>
      {
       isAdmin &&
       <div className='delete-all'>
@@ -116,23 +81,9 @@ function Products() {
           
         })
       }
-
     </div>
+    <LoadMore/>
     {products.length === 0  && <Loading />}
-    <div style={{
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: '50px',
-    }}>
-    {renderPagination()}
-</div>
-
-    <Footer/>
-
-
-    
-    
    
     </>
 

@@ -1,8 +1,6 @@
 import React from 'react'
 import BtnRender from './BtnRender'
-import Navbar from '../../Navbar'
-import Announcement from '../../Announcement'
-import { Footer } from '../../Footer'
+
 
 
 function ProductItem({product,isAdmin, deleteProduct,handleCheck}){

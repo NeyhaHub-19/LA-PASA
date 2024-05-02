@@ -103,7 +103,9 @@ const MenuItem = styled.div`
 const Navbar = () => {
   const state = useContext(GlobalState)
   const [isLogged, setIsLogged] = state.userAPI.isLogged
+  const [username, setUsername] = state.userAPI.username
   const [isAdmin, setIsAdmin] = state.userAPI.isAdmin
+  const [cart] = state.userAPI.cart
 
   const logoutUser = async()=>{
     await axios.get('http://localhost:8000/api/logout')
@@ -131,10 +133,7 @@ const Navbar = () => {
     <Container>
       <Wrapper>
         <Left>
-          <SearchContainer>
-            <Input placeholder="Search" />
-            <Search style={{ color: "gray", fontSize: 16 }} />
-          </SearchContainer>
+        <h1>Welcome, {isLogged && username ? username : "Guest"}</h1>
         </Left>
         <Center>
           <Logo>{isAdmin? 'Admin' : 'LA-PASA.'}</Logo>
@@ -150,12 +149,14 @@ const Navbar = () => {
 }    
             </>
           
-
+          {
+            isAdmin? '':
           <MenuItem>
-            <Badge badgeContent="" color="secondary">
-              <AddShoppingCartOutlined />
+            <Badge badgeContent={cart.length} color="secondary">
+              <AddShoppingCartOutlined/>
             </Badge>
           </MenuItem>
+         }
         </Right>
       </Wrapper>
     </Container>

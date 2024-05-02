@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import { recipeData } from '../data';
+import { GlobalState } from '../GlobalState';
+import Loading from '../Components/utils/loading/Loading';
+import axios from 'axios';
 
 const Container = styled.div`
   display: flex;
@@ -47,15 +49,47 @@ const Description = styled.p`
 `;
 
 const Recipe = () => {
+  const state = useContext(GlobalState)
+  const [recipes, setRecipes] = state.recipeAPI.recipes
+  const [isLogged] =state.userAPI.isLogged
+  const [token] = state.token
+  console.log(state.recipeAPI.recipes)
+  const [callback, setCallback] = state.recipeAPI.callback
+  const [loading, setLoading] = useState(false)
+
+  const deleteRecipe = async(id,public_id)=>{
+    try{
+      setLoading(true)
+      const destroyVideo = axios.post('http://localhost:8000/api/destroyVideo',{public_id},{
+        headers: {Authorization: token}
+      })
+
+      const deleteRecipe = axios.delete(`http://localhost:8000/api/deleteRecipe/${id}`,{
+        headers: {Authorization: token}
+      })
+
+      await destroyVideo
+      await deleteRecipe
+      setCallback(!callback)
+      setLoading(false)
+    }catch(err){
+      alert(err.response.data.msg)
+
+    }
+  }
+
+  if(loading) return <div><Loading/></div>
   return (
     <Container>
-      {recipeData.map((recipe, index) => (
-        <VideoContainer key={index}>
-          <Video src={recipe.video} controls />
+      {recipes.map(recipe => (
+        <VideoContainer key={recipe._id}>
+          <Video src={recipe.video.url} controls />
           <InfoContainer>
             <Title>{recipe.title}</Title>
-            <Description>{recipe.desc}</Description>
+            <h4>{recipe.cooktime}</h4>
+            <Description>{recipe.description}</Description>
           </InfoContainer>
+          <button onClick={deleteRecipe()}>Delete</button>
         </VideoContainer>
       ))}
     </Container>

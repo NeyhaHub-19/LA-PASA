@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { GlobalState } from '../GlobalState';
 
 const ListContainer = styled.div`
   border: 1px solid #ccc;
@@ -30,23 +31,38 @@ const HeaderRow = styled(UserRow)`
   font-weight: bold;
 `;
 
-function UserList({ users, onEdit, onDelete }) {
+function UserList() {
+  const state = useContext(GlobalState);
+  const [users, setUsers] = state.allUsersAPI.allUsers;
+  console.log(state.allUsersAPI.allUsers)
+
+
+  // Check if users is defined and has length
+  if (!users || users.length === 0) {
+    return <div>Loading users...</div>; // Or handle loading or empty states appropriately
+  }
+
   return (
     <ListContainer>
       <HeaderRow>
+        <span>Profile Pic</span>
         <span>Username</span>
         <span>Email</span>
-        <span>Last Accessed</span>
+        <span>User createdAt</span>
+        <span>User updateAt</span>
         <span>Actions</span>
       </HeaderRow>
+      
       {users.map(user => (
-        <UserRow key={user.id}>
+        <UserRow key={user._id}>
+          <img src={user.image.url} alt=''/>
           <span>{user.username}</span>
           <span>{user.email}</span>
-          <span>{new Date(user.lastAccess).toLocaleString()}</span>
+          <span>{new Date(user.createdAt).toLocaleString()}</span>
+          <span>{new Date(user.updatedAt).toLocaleString()}</span>
           <div>
-            <ActionButton onClick={() => onEdit(user)} style={{ backgroundColor: 'blue', color: 'white' }}>Edit</ActionButton>
-            <ActionButton onClick={() => onDelete(user.id)} style={{ backgroundColor: 'red', color: 'white' }}>Delete</ActionButton>
+            <ActionButton style={{ backgroundColor: 'blue', color: 'white' }}>Edit</ActionButton>
+            <ActionButton style={{ backgroundColor: 'red', color: 'white' }}>Delete</ActionButton>
           </div>
         </UserRow>
       ))}

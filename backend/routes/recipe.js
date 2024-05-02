@@ -20,7 +20,7 @@ router.post("/addRecipe", auth, async(req,res)=>{
     }
 })
 
-router.put("/updateRecipe/:id", auth,authAdmin, async(req,res)=>{
+router.put("/updateRecipe/:id", auth, async(req,res)=>{
     try{
         const{title,description,cooktime,video} = req.body;
         if(!video)
@@ -35,7 +35,7 @@ router.put("/updateRecipe/:id", auth,authAdmin, async(req,res)=>{
     }
 })
 
-router.delete("/deleteRecipe/:id", auth, authAdmin,async(req,res)=>{
+router.delete("/deleteRecipe/:id", auth, async(req,res)=>{
     try{
         await Recipe.findByIdAndDelete(req.params.id)
         res.status(200).json({msg: "Delete a recipe"})
@@ -58,7 +58,7 @@ router.get('/recipes',async(req,res)=>{
     }
 })
 
-router.get('/recipe/:id',auth,authAdmin, async(req,res)=>{
+router.get('/recipe/:id',auth, async(req,res)=>{
     try{
         const recipe_id = req.params.id;
         const recipeDetails = await Recipe.findById(recipe_id)
