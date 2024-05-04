@@ -15,10 +15,10 @@ function Filters() {
         setSearch('')
     }
   return (
-    <div className='filter_menu'>
-        <div className='row'>
-            <span>Filters:</span>
-            <select name="category" value={category} onChange={handleCategory}>
+    <div className='filter_menu' style={{display:'flex',justifyContent:'space-evenly'}}>
+        <div className='row' style={{width:'30%'}}>
+            <span style={{padding:'10px',margin:'10px', color:'Teal',fontSize:'20px',fontWeight:'700'}}>Filters:</span>
+            <select name="category" value={category} onChange={handleCategory} style={{borderRadius:'10px',width:'300px'}}>
                 <option value=''>All Products</option>
                 {
                     categories.map(category=>(
@@ -31,10 +31,10 @@ function Filters() {
 
             </select>
         </div>
-         <input type='text' value={search} placeholder="Enter your search!" onChange={e=> setSearch(e.target.value)}/>
-         <div className='row'>
-            <span>Sort By:</span>
-            <select value={sort} onChange={e=> setSort(e.target.value)}>
+         <input type='text' value={search} placeholder="Enter your search!" onChange={e=> setSearch(e.target.value)} style={{borderRadius:'10px',width:'40%'}}/>
+         <div className='row1' style={{width:'30%'}}>
+            <span style={{color: 'teal', fontSize:'20px',fontWeight:'700',padding:'10px',margin:'10px'}}>SortBy:</span>
+            <select value={sort} onChange={e=> setSort(e.target.value)} style={{ borderRadius:'10px',width:'300px'}}>
               <option value='sort=-sold'>Best sales</option>
               <option value='sort=-price'>Price: High-Low</option>
               <option value='sort=price'>Price: Low-High</option>

@@ -133,10 +133,10 @@ const Navbar = () => {
     <Container>
       <Wrapper>
         <Left>
-        <h1>Welcome, {isLogged && username ? username : "Guest"}</h1>
+        <h1>Welcome,<span style={{color:'#008080'}}>{isLogged && username ? username : "Guest"}</span> </h1>
         </Left>
         <Center>
-          <Logo>{isAdmin? 'Admin' : 'LA-PASA.'}</Logo>
+          <Logo style={{margin:'10px'}}>{isAdmin? 'Admin' : 'LA-PASA'}</Logo>
         </Center>
         <Right>
           

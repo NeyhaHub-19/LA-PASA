@@ -52,21 +52,26 @@ const Title = styled.h1`
 const Desc = styled.p`
   margin: 50px 0;
   font-size: 20px;
-  font-weight: 500;
-  letter-spacing: 3px;
+  font-weight: 300;
+  letter-spacing: 1px
 `;
 
 const Button = styled.button`
   padding: 10px;
   font-size: 20px;
-  background-color: #eeeeee; // Light gray for the button
+  height:40px;
+  width:160px;
+  background-color:#008080; // Light gray for the button
   color: black;
   border: none;
+  font-weight:400;
+  color:#fff;
   cursor: pointer;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #e0e0e0; // Slightly darker gray on hover
+    background-color: #e0e0e0; 
+    color:#008080;
   }
 `;
 

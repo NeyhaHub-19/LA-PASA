@@ -1,34 +1,44 @@
-.title{
+/* --------------- Title ------------------ */
+.title {
     text-align: center;
     color: #555;
-}
-
-.products{
+  }
+  
+  /* --------------- Products ------------------ */
+  .products {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     column-gap: 30px;
     justify-items: center;
     margin: 20px 0;
-}
-
-.product_card{
-    width: 300px;
+  }
+  
+  .product_card {
+    width: 385px;
     overflow: hidden;
-    height: 670px;
+    height: 550px; 
     padding: 15px;
     box-shadow: 0 0 15px #ddd;
     margin: 10px 0;
-}
+    border: '2px solid #ccc';
+  }
 
-.product_card img{
-    width: 100%;
+  .product_card p{
+    margin-left :10px;
+    padding: 10px;
+
+  }
+  
+  .product_card img {
+    width: 350px;
     height: 300px;
     display: block;
     object-fit: cover;
-}
-
-.product_box h3{
+    border: '2px solid #ccc';
+  }
+  
+  .product_box h3 {
     width: 100%;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -37,95 +47,106 @@
     cursor: pointer;
     color: #323232;
     font-size: 20px;
-}
+  }
+  
+  .product_card span {
+    color: teal;
+    margin: 10px;
+    padding: 10px;
+  }
+  
 
-.product_card span{
-    color: crimson;
-}
-
-.product_box h2{
-    width: 100%;
-    display: -webkit-box;
+  .product_box h2 {
+    width: 100%; 
+    display: -webkit-box; 
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    height: 40px;
+    -webkit-line-clamp: 3; 
+     height: 40px; 
     overflow: hidden;
-    color: #323232;
-}
-
-.product_box h6{
+    color: teal;
+    text-align: center;
+  }
+  
+  /* .product_box h6 {
     width: 100%;
     height: 30px;
     overflow: hidden;
-    color: #323232;
-}
-
-
-
-.row_btn{
-    width: 100%;
-    margin-top: 10px;
+    color: red;
+    margin: 10px;
+    padding: 10px;
+  } */
+  
+  /* --------------- Buttons ------------------ */
+  .row_btn {
+    padding:10px;
     display: flex;
-    justify-content: space-between;
-}
-
-.row_btn a{
-    width: 50%;
+    justify-content: space-evenly;
+  }
+  
+  .row_btn a {
     text-align: center;
-    text-transform: uppercase;
     color: white;
-    font-weight: 600;
-    letter-spacing: 2px;
-    padding: 6px;
-}
-
-#btn_product{
+    font-weight: 400;
+    letter-spacing: 1px;
+    padding: 5px;
+    margin: 10px;
+    border: none;
+  }
+  
+  #btn_product {
     background: #555;
     margin-right: 5px;
-}
-
-#btn_add{
+  }
+  
+  #btn_add {
     background: crimson;
-}
-
-#btn_view{
+    width: 100px;
+    height: 30px;
+    font-size: 15px;
+  }
+  
+  #btn_view {
     background: teal;
-    margin-left: 5px;
-}
+    width: 100px;
+    height: 30px;
+    font-size: 15px;
 
-
-.product_card input{
+  }
+  
+  .product_card input {
     position: absolute;
     width: 25px;
     height: 25px;
-}
-
-.delete-all{
+  }
+  
+  /* --------------- Delete All ------------------ */
+  .delete-all {
     text-align: center;
     margin: 20px;
-}
-
-.delete-all input{
+  }
+  
+  .delete-all input {
     height: 25px;
     width: 25px;
     transform: translateY(5px);
     margin: 0 15px;
-}
-
-.delete-all span{
+  }
+  
+  .delete-all span {
     text-transform: uppercase;
-    color: rgb(3,165,206);
+    color: rgb(3, 165, 206);
     letter-spacing: 1.3px;
-}
-
-.delete-all button{
+  }
+  
+  .delete-all button {
     border: 1px solid crimson;
     padding: 10px 25px;
     color: crimson;
     text-transform: uppercase;
-}
-/* ------------ Filters Menu ----------------- */
-.filter_menu{
+  }
+  
+  /* --------------- Filter Menu ------------------ */
+  .filter_menu {
     width: 100%;
     min-height: 40px;
     overflow: hidden;
@@ -134,25 +155,30 @@
     align-items: center;
     flex-wrap: wrap;
     margin: 15px 0;
-}
-.filter_menu select, input{
+  }
+  
+  .filter_menu select,
+  input {
     border: 1px solid #ccc;
     outline: none;
     height: 40px;
     padding: 0 5px;
-}
-.filter_menu input{
+  }
+  
+  .filter_menu input {
     flex: 1;
     margin: 0 10px;
-}
-
-/* -------------------- Load More --------------- */
-.load_more{
+  }
+  
+  /* --------------- Load More ------------------ */
+  .load_more {
     text-align: center;
-}
-.load_more button{
+  }
+  
+  .load_more button {
     padding: 10px 25px;
     margin-bottom: 20px;
     border: 1px solid #555;
     text-transform: capitalize;
-}
+  }
+  

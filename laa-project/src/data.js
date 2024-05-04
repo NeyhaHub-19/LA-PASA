@@ -28,7 +28,7 @@ export const sliderItems = [
     id: 1,
     img: item1,
     title: "SUPER SALE",
-    desc: "DONT COMPROMISE ON QUALITY!! GET 20% OFF FOR FROZEN PRODUCTS",
+    desc: "Don't compromise on quality!! get 30% off for frozen products",
     bg: "f5fafd",
   },
 
@@ -36,7 +36,7 @@ export const sliderItems = [
     id: 2,
     img: item2,
     title: "MEGA OFFER",
-    desc: "DONT COMPROMISE ON QUALITY!! GET 30% OFF FOR FROZEN PRODUCTS",
+    desc: "Don't compromise on quality!! get 30% off for frozen products",
     bg: "fcf1ed",
   },
 
@@ -44,7 +44,7 @@ export const sliderItems = [
     id: 2,
     img: item3,
     title: "BEST SELLERS",
-    desc: "DONT COMPROMISE ON QUALITY !! EVERY STOCK IS NOT ENOUGH",
+    desc: "Don't compromise on quality!! get 30% off for frozen products",
     bg: "f5fafd",
   },
 ];

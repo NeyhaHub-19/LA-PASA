@@ -1,10 +1,11 @@
 .detail{
-    width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     flex-wrap: wrap;
     padding: 50px;
     font-size: 150%;
+    margin: 20px;
+
 }
 .detail img{
     max-width: 400px;
@@ -13,6 +14,8 @@
     height: 450px;
     object-fit: cover;
     display: block;
+    border: 2px solid #ccc;
+
 }
 .box-detail{
     max-width: 500px;
@@ -23,37 +26,45 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 10px;
 }
 .box-detail h2{
     text-transform: uppercase;
-    color: darkblue;
-    letter-spacing: 2px;
+    color: teal;
     font-weight: 2rem;
-    padding-bottom: 10px ;
 }
+
 .box-detail p{
-    line-height: 1.5;
     margin: 10px 0;
-    opacity: 0.8;
-    text-align: justify;
+    justify-content: center;
+    margin: 10px;
+    font-size: 20px;
 }
+
+.sold {
+    color: teal;
+}
+
 .box-detail .cart{
+    width:140px;
     background: #333;
     color: white;
     margin-top: 10px;
     padding: 10px 25px;
     display: inline-block;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    font-size: 15px;
+    border:none;
 }
 
-.products h3{
-    text-transform: uppercase;
-    color: darkblue;
-    font-weight: 2rem;
-    padding-bottom: 10px ;
-    margin-left: 20px;
-    font-size: 30px;
-
+.price{
+    padding-bottom: 10px;
+    font-size: 20px;
+    padding:10px;
+    margin-left: 5px;
 }
 
+.moretitle{
+   text-align: center;
+   font-size: 2rem;
+   color:teal;
+}

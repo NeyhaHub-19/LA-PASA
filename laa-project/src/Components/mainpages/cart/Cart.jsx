@@ -73,7 +73,7 @@ function Cart() {
             )}
                         <div className="box-detail">
                             <h2>{product.title}</h2>
-                            <h3> ${product.price * product.sold}</h3>
+                            <h3> Rs.{product.price * product.sold}</h3>
                             <p>{product.desc}</p>
                             <p>Sold: {product.sold}</p>
                             <div className='amount'>

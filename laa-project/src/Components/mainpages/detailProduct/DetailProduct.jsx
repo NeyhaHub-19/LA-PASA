@@ -34,16 +34,16 @@ function DetailProduct(){
           <h2>{detailProduct.title}</h2>
           <h6>#id: {detailProduct.product_id}</h6>
           </div>
-          <span> ${detailProduct.price}</span>
-          <h3>{detailProduct.desc}</h3>
-        <p>Sold: {detailProduct.sold}</p>
+          <h4 className="price">Rs.{detailProduct.price}</h4>
+          <p desc>{detailProduct.desc}</p>
+        <p className="sold" style={{fontSize:'15px',fontWeight:'700'}}>Sold: {detailProduct.sold}</p>
 
         <Link to="/cart" className="cart" onClick={()=> addToCart(detailProduct)}>Add To Cart</Link>
       </div>
     </div>
 
     <div>
-     <h2>Other Products</h2>
+     <h2 className="moretitle">Other Products</h2>
      <div className="products">
       {
         products.map(product=>{

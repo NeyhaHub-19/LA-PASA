@@ -19,7 +19,6 @@ function ProductItem({product,isAdmin, deleteProduct,handleCheck}){
             <h2 title={product.title}>{product.title}</h2>
             <p>{product.desc}</p>
             <span>Rs.{product.price}</span>
-            <h6>Sold:{product.sold}</h6>
         </div>
 
        <BtnRender product={product} deleteProduct={deleteProduct}/>
