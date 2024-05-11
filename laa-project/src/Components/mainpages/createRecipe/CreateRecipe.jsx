@@ -115,7 +115,7 @@ function CreateRecipe(){
             setVideos(false)
             setRecipe(initialState)
             setCallback(!callback)
-            window.location.href = "/"
+            window.location.href = "/recipes"
 
         }catch(err){
             if(err.response){

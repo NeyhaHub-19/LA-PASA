@@ -9,6 +9,9 @@ function Cart() {
     const [cart, setCart] = state.userAPI.cart;
     const [token] = state.token;
     const [total, setTotal] = useState(0);
+    const [id, setId] = state.userAPI.id
+    const [username, setUsername] = state.userAPI.username;
+    const [email, setEmail] = state.userAPI.email;
 
     useEffect(() => {
         const getTotal = () => {
@@ -21,6 +24,8 @@ function Cart() {
         getTotal();
     }, [cart]);
 
+
+    
     const addToCart = async (cart) => {
         await axios.patch('http://localhost:8000/api/cart', { cart }, {
             headers: { Authorization: token }
@@ -60,6 +65,48 @@ function Cart() {
         return <h2 style={{ textAlign: "center", fontSize: "5rem" }}>Cart Empty</h2>;
     }
 
+
+    const handlePurchase = async()=>{
+        console.log(total)
+        try{
+            const response = await axios.get(`http://localhost:8000/api/userCart/${id}/cart`,{
+                headers: {Authorization: token}
+            })
+            console.log(response.data)
+            const playload = {
+                "return_url": "http://localhost:3000/sucess",
+                "website_url": "http://localhost:3000/",
+                "amount": total * 100,
+                "purchase_order_id": response.data[0].product_id,
+                "purchase_order_name": "test",
+                "customer_info": {
+                    "name": username,
+                    "email": email,
+                    "phone": "9800000123"
+                }
+              }
+              
+
+              console.log('Payload sent to Khalti API:', playload);
+
+              const checkout = await axios.post(`http://localhost:8000/khalti-api`,playload)
+              console.log(checkout)
+              if (response) {
+                window.location.href = `${checkout?.data?.data?.payment_url}`;
+              }
+          
+          
+                  }catch(err){
+          
+                  }
+             
+
+
+        
+
+
+    }
+
     return (
         <>
         <Announcement/>
@@ -90,6 +137,9 @@ function Cart() {
 
             <div className='total'>
                 <h3>Total: ${total}</h3>
+                <button id='payment-button' onClick={handlePurchase}>
+                 Khalti checkout
+                 </button>
             </div>
         </div>
         <Footer/>

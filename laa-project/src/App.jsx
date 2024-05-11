@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import Home from "./Pages/Home";
 
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import { BrowserRouter, Routes, Route} from "react-router-dom";
-import ForgetPassWord from "./Pages/ForgetPassword";
+import ForgotPassword from "./Pages/ForgotPassword";
 import ResetPasswordPage from "./Pages/ResetPasswordPage"
 import Recipe from "./Pages/Recipe";
 import { DataProvider } from "./GlobalState";
@@ -20,8 +20,16 @@ import NotFoundPage from  "./Pages/NotFoundPage"
 import EmailVerifyPage from "./Pages/EmailVerifyPage";
 import Cart from "./Components/mainpages/cart/Cart";
 import UserList from "./Components/UserList";
+import ViewCart from "./Components/viewcart/ViewCart";
+import UpdateUser from "./Components/UpdateUser";
+import Success from "./Components/Success";
+import PigMeat from "./Components/categoryPages/PigMeat";
+import ChickenMeat from "./Components/categoryPages/ChickenMeat";
+import FrozenProduct from "./Components/categoryPages/FrozenProduct";
 
-const App = () => {
+
+function App(){
+  
   return (
     <DataProvider>
     <BrowserRouter>
@@ -32,8 +40,8 @@ const App = () => {
         <Route
           path="/register" element ={<Register />}/>
        
-        <Route path="/forgotpassword" element={<ForgetPassWord />} /> 
-        <Route path="/resetpassword" element={<ResetPasswordPage/>}/>
+        <Route path="/forgotpassword" element={<ForgotPassword/>} /> 
+        <Route path="/api/reset-password/:id/reset/:token" element={<ResetPasswordPage/>}/>
         <Route path="/recipes" element={<Recipe/>} /> 
         <Route path="/category" element={<Categories/>}/>
         <Route path="/create_product" element={<CreateProduct/>}/>
@@ -42,10 +50,17 @@ const App = () => {
         <Route path="/create_recipe" element={<CreateRecipe/>}/>
         <Route path="/detail/:id" element={<DetailProduct/>}/>
         <Route path="/admin/profile" element ={<AdminProfile/>}/>
-        <Route path="/user/profile" element ={<UserProfile/>}/>
-        <Route path="/notfound" element ={<NotFoundPage/>}/>
+        <Route path="/user/profile/:id" element ={<UserProfile/>}/>
         <Route path="/api/users/:id/verify/:token" element={<EmailVerifyPage/>}/>
         <Route path="/cart" element={<Cart/>}/>
+        <Route path="/viewcart" element={<ViewCart/>}/>
+        <Route path="/updateUser/:id" element={<UpdateUser/>}/>
+        <Route path="/edit_recipe/:id" element={<CreateRecipe/>}></Route>
+        <Route path="/allUsers" element={<UserList/>}></Route>
+        <Route path="/sucess" element={<Success/>}/>
+        <Route path="/products/pork" element={<PigMeat/>}/>
+        <Route path="/products/chicken" element={<ChickenMeat/>}/>
+        <Route path="/products/frozen products" element={<FrozenProduct/>}/>
       </Routes>
     </BrowserRouter>
     </DataProvider>

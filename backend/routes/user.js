@@ -7,6 +7,7 @@ const sendEmail = require('../utils/SendEmail')
 const router = require("express").Router()
 const auth = require('../middleware/auth')
 const authAdmin = require('../middleware/authAdmin')
+const ResetPassToken = require('../models/resetPassToken')
 
 const signToken = id => {
     return jwt.sign({id}, "secret", {expiresIn: "1h"})
@@ -23,14 +24,31 @@ const tokenResponse = (user, statuscode, res) => {
     })
 }
 
+const resetPassTokenResponse = (user, statuscode, res)=>{
+    const token = signToken(user._id)
+    res.status(statuscode).json({Status: "success", token, data:{user:user}})
+
+}
+
 router.post("/register", async(req,res)=>{
     const registerResponse = req.body
     const existingUser = await User.findOne({email: registerResponse.email})
-    const mailOptions={
-        from :"LAA-PASA",
-        to : "Verify Email first",
-        subject: "To verify email to create account"
-      }
+    const mailOptions = {
+        from: "LAA-PASA",
+        to: "Verify Email first",
+        subject: "To verify email to create account",
+        html: 
+        `
+        <div style="max-width: 700px; margin:auto; border: 10px solid #555; padding: 50px 20px; font-size: 110%;">
+          <h1 style="color: teal">Welcome to LAA-PASA!</h1>
+          <img src="https://images.pexels.com/photos/14493876/pexels-photo-14493876.jpeg" alt="LAA-PASA" style="max-width: 100%; height: auto; display: block;  max-height: 300px; border: 2px solid teal">
+          <p style="color: #000;">Thank you for registering with us. To complete your registration, please verify your email by clicking the button below:</p>
+          <a href="${url}" style="background-color: teal; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 5px;">Verify Email</a>
+          <p style="color: #000;">If you did not register with LAA-PASA, please ignore this email.</p>
+          </div>
+          `
+        
+      };
     if(!existingUser){
         try{
             if(registerResponse.password === registerResponse.confirmPassword){
@@ -59,7 +77,7 @@ router.post("/register", async(req,res)=>{
                             path: '/api/refresh_token',
                             maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
                         })
-                        await sendEmail(registration.email, "verify Email", url)
+                        await sendEmail(registration.email, mailOptions.subject, mailOptions.html)
                         console.log("Email has been sent for verification")
                         return res.json({accesstoken,msg:"Email has been send for verification"})
                     }
@@ -105,6 +123,8 @@ router.post("/login", async(req,res)=>{
 
                 return res.json({refreshtoken, accesstoken, msg:"Logged in successfully"}); 
                 }
+            }else{
+                return res.status(400).json("Incorrect password")
             }
         }catch(err){
             res.json(err.message)
@@ -155,6 +175,8 @@ router.patch('/cart',auth, async(req,res)=>{
     }
 
 })
+
+
 
 const createAccessToken = (user) =>{
     return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1d'})
@@ -242,6 +264,139 @@ router.put("/updateUser/:id", auth, async(req,res)=>{
     }
 })
 
+router.get('/getOneUser/:id', auth, async(req,res)=>{
+    try {
+        const user = await User.findById(req.params.id).select('-password -confirmPassword')
+        if(!user) return res.status(400).json({msg: "User does not exist."})
+
+        res.json(user)
+    } catch (err) {
+        return res.status(500).json({msg: err.message})
+    }
+})
+router.get('/user/:userId/cart', auth,authAdmin, async(req,res)=>{
+    try{
+        const user = await User.findById(req.params.userId);
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+        res.json(user.cart);
+
+    }catch(err){
+        console.error(err);
+        res.status(500).json({msg: 'Server Error' });
+
+    }
+})
+
+router.get('/userCart/:userId/cart',auth,async(req,res)=>{
+    try{
+        const user = await User.findById(req.params.userId);
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+        res.json(user.cart);
+
+    }catch(err){
+        console.error(err);
+        res.status(500).json({msg: 'Server Error' });
+
+    }
+})
+
+router.post('/reset-password', async (req, res) => {
+    const { userEmail } = req.body; // Destructure userEmail from req.body
+    const existingUser = await User.findOne({ email: userEmail });
+    if(existingUser){
+        try{
+            let tokens = await ResetPassToken.findOne({userId: existingUser._id})
+            if(!tokens){
+                tokens = await new ResetPassToken({
+                    userId: existingUser._id,
+                    token: crypto.randomBytes(32).toString('hex')
+                }).save()
+
+                const url = `http://localhost:8000/api/reset-password/${existingUser._id}/reset/${tokens.token}`
+                console.log(url)
+
+                const mailOptions={
+                    from: "LAA-PASA",
+                    to: "Reset-Password",
+                    subject: "Reset your account Password",
+                    html:`
+                    <div style="max-width: 700px; margin:auto; border: 10px solid #555; padding: 50px 20px; font-size: 110%;">
+                    <h1 style="color: teal">Reset Your Password</h1>
+                    <img src="https://images.pexels.com/photos/14493876/pexels-photo-14493876.jpeg" alt="LAA-PASA" style="max-width: 100%; height: auto; display: block;  max-height: 300px; border: 2px solid teal">
+                    <p style="color: #000;">To reset your password, please click the button below:</p>
+                    <a href="${url}" style="background-color: teal; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 5px;">Reset Password</a>
+                    <p style="color: #000;">If you did not made this request to reset password for LAA-PASA, please ignore this email.</p>
+                    </div>
+                    `
+
+                };
+
+                await sendEmail(existingUser.email, mailOptions.subject, mailOptions.html)
+                console.log("Email has been sent for password reset")
+                return res.json({msg: "Email has been sent for password reset"})
+
+            }
+            resetPassTokenResponse(existingUser, 200, res)
+
+
+        }catch(err){
+            return res.status(500).json({msg:err})
+
+        }
+    }
+})
+
+router.post('/reset-password/:id/reset/:token', async(req,res)=>{
+try{
+    const {newPassword, newconfirmPassword} = req.body
+    if(newPassword===newconfirmPassword){
+        const hashPassword = bcrypt.hashSync(newPassword,12);
+        const hashConfirmPassword = bcrypt.hashSync(newconfirmPassword,12);
+
+        const user = await User.findById(req.params.id)
+        if(!user){
+            return res.status(400).json({message: "Invalid user link"})
+        }
+
+            const token = await ResetPassToken.findOne({userId: req.params.id, token: req.params.token})
+            if(!token){
+                return res.status(400).json({message: "Invalid token link"})
+            }
+
+            await ResetPassToken.deleteOne({_id: token._id})
+
+            await User.findByIdAndUpdate(req.params.id, {password: hashPassword, confirmPassword: hashConfirmPassword})
+            res.status(200).json("Password reset successfully")
+    }else{
+        return res.status(400).json({msg: "Password and confirmPassword does not match"})
+    }
+
+
+    
+}catch(err){
+    console.error("Error verifying email:", err.message)
+    console.error("Error stack trace:", err.stack)
+    res.status(500).json({ message: "Internal Server Error", error: err.message })
+
+}
+})
+
+router.get('/resetToken/:userId', async (req, res) => {
+    try {
+        const token = await ResetPassToken.findOne({ userId: req.params.userId });
+        if (!token) {
+            return res.status(404).json({ msg: 'User reset token not found' });
+        }
+        return res.status(200).json(token);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ msg: 'Server Error' });
+    }
+});
 
 
 

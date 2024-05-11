@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { GlobalState } from '../GlobalState';
+import { Link } from 'react-router-dom';
 
 const ListContainer = styled.div`
   border: 1px solid #ccc;
@@ -61,8 +62,12 @@ function UserList() {
           <span>{new Date(user.createdAt).toLocaleString()}</span>
           <span>{new Date(user.updatedAt).toLocaleString()}</span>
           <div>
+            <Link to={`/updateUser/${user._id}`}>
             <ActionButton style={{ backgroundColor: 'blue', color: 'white' }}>Edit</ActionButton>
-            <ActionButton style={{ backgroundColor: 'red', color: 'white' }}>Delete</ActionButton>
+            </Link>
+            <Link to="/cart">
+            <ActionButton style={{ backgroundColor: 'red', color: 'white' }}>View Cart</ActionButton>
+            </Link>
           </div>
         </UserRow>
       ))}

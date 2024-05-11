@@ -106,6 +106,7 @@ const Navbar = () => {
   const [username, setUsername] = state.userAPI.username
   const [isAdmin, setIsAdmin] = state.userAPI.isAdmin
   const [cart] = state.userAPI.cart
+  const [id, setId] = state.userAPI.id
 
   const logoutUser = async()=>{
     await axios.get('http://localhost:8000/api/logout')
@@ -125,6 +126,7 @@ const Navbar = () => {
   const loggedRouter = () =>{
     return(
       <>
+      <StyledLinkItem><Link to={`/user/profile/${id}`}>Profile</Link></StyledLinkItem>
       <StyledLinkItem><Link to="/" onClick={logoutUser}>Logout</Link></StyledLinkItem>
       </>
     )
@@ -152,9 +154,11 @@ const Navbar = () => {
           {
             isAdmin? '':
           <MenuItem>
+          <Link to={'/cart'}>
             <Badge badgeContent={cart.length} color="secondary">
               <AddShoppingCartOutlined/>
             </Badge>
+            </Link>
           </MenuItem>
          }
         </Right>

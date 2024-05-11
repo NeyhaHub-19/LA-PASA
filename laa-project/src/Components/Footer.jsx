@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { Facebook, Instagram, MailOutline, Phone, Room } from '@mui/icons-material';
 import React from 'react';
-import es from '../image/es.png';
 import { mobile } from '../responsive';
 
 const Container = styled.div`
@@ -113,8 +112,8 @@ export const Footer = () => {
           <ListItem>Frozen Products</ListItem>
           <ListItem>Recipe</ListItem>
           <ListItem>My Account</ListItem>
-          <ListItem>Order Tracking</ListItem>
-          <ListItem>Terms</ListItem>
+          <ListItem>Contact Us</ListItem>
+          <ListItem>About Us</ListItem>
         </List>
       </Center>
       <Right>
@@ -131,7 +130,7 @@ export const Footer = () => {
           <MailOutline style={{ marginRight: "10px" }} />
           Thati@gmail.com || Fal@gmail.com
         </ContactItem>
-        <Payment src={es} />
+        
       </Right>
     </Container>
   );

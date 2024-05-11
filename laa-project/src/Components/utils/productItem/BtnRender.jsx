@@ -1,10 +1,12 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { GlobalState } from '../../../GlobalState';
 
 function BtnRender({product, deleteProduct}){
     const state = useContext(GlobalState)
+    const addToCart = state.userAPI.addToCart
     const [isAdmin] = state.userAPI.isAdmin
+    const [detailProduct, setDetailProduct] = useState([])
 
     return(
     <>
@@ -17,8 +19,8 @@ function BtnRender({product, deleteProduct}){
     </>
      :
      <>
-      <Link id='btn_product' to={`/detail/${product._id}`}style={{ background: '#333', color: '#fff', border: 'none', width: '130px', height: '40px', fontSize: '15px',padding:'10px' }}  >
-      Add to Cart
+      <Link id='btn_product' to={`/cart`} style={{ background: '#333', color: '#fff', border: 'none', width: '130px', height: '40px', fontSize: '15px',padding:'10px' }} onClick={()=> addToCart} >
+      View Cart
     </Link> <Link id='btn_view' to={`/detail/${product._id}`} style={{ background: 'teal', color: '#fff', border: 'none', width: '150px', height: '40px', fontSize: '15px',padding:'10px'}}>
       View Product
     </Link>

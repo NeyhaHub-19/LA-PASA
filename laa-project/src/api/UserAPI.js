@@ -7,6 +7,8 @@ function UserAPI(token) {
     const[username, setUsername]= useState("") 
     const[user, setUser] = useState("")
     const [cart, setCart] = useState([])
+    const [id, setId] = useState("")
+    const [email, setEmail] = useState("")
 
     useEffect(() =>{
         if(token){
@@ -15,12 +17,15 @@ function UserAPI(token) {
                     const res = await axios.get('http://localhost:8000/api/getUser', {
                         headers: {Authorization: token}
                     })
+                    console.log(isLogged)
                     setIsLogged(true)
                     setUsername(res.data.username)
+                    setEmail(res.data.email)
                     setUser(res.data)
                     console.log(res.data)
                     res.data.role === 1 ? setIsAdmin(true): setIsAdmin(false)
                     setCart(res.data.cart)
+                    setId(res.data._id)
                 }catch(err){
                     alert(err.res.data.msg)
                 }
@@ -52,7 +57,9 @@ function UserAPI(token) {
     username: [username, setUsername],
     cart: [cart, setCart],
     user: [user, setUser],
-    addToCart: addToCart
+    addToCart: addToCart,
+    id: [id, setId],
+    email: [email, setEmail]
 }
 }
 

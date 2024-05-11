@@ -1,32 +1,33 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useContext, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { GlobalState } from '../GlobalState';
 
-const App = () => {
-  const [password, setPassword] = useState('');
-  const [repeatPassword, setRepeatPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+function ResetPasswordPage() {
+  const state = useContext(GlobalState)
+  const [userId, setUserId] = state.resetAPI.userId
+  const [passwords, setPasswords] = useState({
+    newPassword: "",
+    confirmPassword: ""
+  });
+  const[id, setID] = state.userAPI.id
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+  
+
+  const handlePasswordChange = (event) => {
+    const { name, value } = event.target;
+    setPasswords(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleRepeatPasswordChange = (e) => {
-    setRepeatPassword(e.target.value);
-  };
+  const handleSubmit = async(event)=>{
+    event.preventDefault()
+    try{
+      const res = await axios.post(`http://localhost:8000/api/reset-password/${id}/reset/aca00f798635842ae9fd50627768310a45e07efab55ad95b3ae13054eeaced38`)
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+    }catch(err){
 
-    if (password !== repeatPassword) {
-      setErrorMessage("Passwords don't match");
-      return;
     }
-
-    console.log('Password reset initiated:', password);
-    setPassword('');
-    setRepeatPassword('');
-    setErrorMessage('');
-  };
+  }
 
   return (
     <div style={{ textAlign: 'center' }}>
@@ -35,8 +36,6 @@ const App = () => {
         <div style={{ marginBottom: '1rem', padding: '1rem' }}>
           <input
             type="password"
-            value={password}
-            onChange={handlePasswordChange}
             placeholder="New Password"
             style={{ padding: '5px', width: '100%', boxSizing: 'border-box' }}
           />
@@ -44,13 +43,11 @@ const App = () => {
         <div style={{ marginBottom: '1rem', padding: '1rem' }}>
           <input
             type="password"
-            value={repeatPassword}
-            onChange={handleRepeatPasswordChange}
             placeholder="Confirm Password"
             style={{ padding: '5px', width: '100%', boxSizing: 'border-box' }}
           />
         </div>
-        {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
+         <div style={{ color: 'red' }}></div>
         <button type="submit" style={{ marginTop: '1rem', background: '#006D5B', color: 'white', border: 'none', padding: '10px 20px' }}>
           Reset Password
         </button>
@@ -59,6 +56,4 @@ const App = () => {
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
-
-export default App;
+export default ResetPasswordPage;
