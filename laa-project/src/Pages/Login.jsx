@@ -116,7 +116,7 @@ const Login = () => {
     } catch (err) {
       // It's better to handle errors more specifically if you can
       console.error("Login error", err);
-      alert(err.response ? err.response.data.msg : err.message);
+      alert(err.response.data.msg);
     }
   };
 

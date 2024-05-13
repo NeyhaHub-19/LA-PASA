@@ -40,9 +40,8 @@ function ChickenMeat() {
                 <img src={product.image.url} alt=""/>
 <               div className="product_box">
                 <h2 title={product.title}>{product.title}</h2>
-                <h3>{product.desc}</h3>
-                <span>${product.price}</span>
-                <h6>{product.sold}</h6>
+                <p>{product.desc}</p>
+                <span>Rs.{product.price}</span>
                  </div>
                  <BtnRender product={product}/>
                 </div>

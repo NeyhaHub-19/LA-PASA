@@ -26,6 +26,7 @@ import Success from "./Components/Success";
 import PigMeat from "./Components/categoryPages/PigMeat";
 import ChickenMeat from "./Components/categoryPages/ChickenMeat";
 import FrozenProduct from "./Components/categoryPages/FrozenProduct";
+import RecipePage from "./Components/categoryPages/RecipePage";
 
 
 function App(){
@@ -53,7 +54,7 @@ function App(){
         <Route path="/user/profile/:id" element ={<UserProfile/>}/>
         <Route path="/api/users/:id/verify/:token" element={<EmailVerifyPage/>}/>
         <Route path="/cart" element={<Cart/>}/>
-        <Route path="/viewcart" element={<ViewCart/>}/>
+        <Route path="/user/:id/cart" element={<ViewCart/>}/>
         <Route path="/updateUser/:id" element={<UpdateUser/>}/>
         <Route path="/edit_recipe/:id" element={<CreateRecipe/>}></Route>
         <Route path="/allUsers" element={<UserList/>}></Route>
@@ -61,6 +62,7 @@ function App(){
         <Route path="/products/pork" element={<PigMeat/>}/>
         <Route path="/products/chicken" element={<ChickenMeat/>}/>
         <Route path="/products/frozen products" element={<FrozenProduct/>}/>
+        <Route path="/products/recipe" element={<RecipePage/>}/>
       </Routes>
     </BrowserRouter>
     </DataProvider>

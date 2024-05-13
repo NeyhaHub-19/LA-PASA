@@ -128,6 +128,7 @@ const Navbar = () => {
       <>
       <StyledLinkItem><Link to={`/user/profile/${id}`}>Profile</Link></StyledLinkItem>
       <StyledLinkItem><Link to="/" onClick={logoutUser}>Logout</Link></StyledLinkItem>
+      <StyledLinkItem><a href='mailto:nehneh0719@gmail.com'>Contact Us</a></StyledLinkItem>
       </>
     )
   }
@@ -143,7 +144,7 @@ const Navbar = () => {
         <Right>
           
             <>
-              <MenuItem>{isAdmin? 'Users':'Profile'}</MenuItem>
+              <MenuItem>{isAdmin? 'Users':'Home'}</MenuItem>
               {
                 isAdmin && adminRouter()}{
                   isLogged?loggedRouter():

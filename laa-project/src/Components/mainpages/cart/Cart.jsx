@@ -136,7 +136,7 @@ function Cart() {
             }
 
             <div className='total'>
-                <h3>Total: ${total}</h3>
+                <h3>Total: Rs.{total}</h3>
                 <button id='payment-button' onClick={handlePurchase}>
                  Khalti checkout
                  </button>

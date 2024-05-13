@@ -4,30 +4,31 @@ import ReactDOM from 'react-dom';
 import { GlobalState } from '../GlobalState';
 
 function ResetPasswordPage() {
-  const state = useContext(GlobalState)
-  const [userId, setUserId] = state.resetAPI.userId
+  const state = useContext(GlobalState);
+  const [id, setId] = state.userAPI.id;
   const [passwords, setPasswords] = useState({
     newPassword: "",
-    confirmPassword: ""
+    newconfirmPassword: ""
   });
-  const[id, setID] = state.userAPI.id
-
-  
 
   const handlePasswordChange = (event) => {
     const { name, value } = event.target;
-    setPasswords(prev => ({ ...prev, [name]: value }));
+    setPasswords(prevPasswords => ({
+      ...prevPasswords,
+      [name]: value
+    }));
   };
 
   const handleSubmit = async(event)=>{
-    event.preventDefault()
-    try{
-      const res = await axios.post(`http://localhost:8000/api/reset-password/${id}/reset/aca00f798635842ae9fd50627768310a45e07efab55ad95b3ae13054eeaced38`)
-
-    }catch(err){
-
+    event.preventDefault();
+    try {
+      const res = await axios.post(`http://localhost:8000/api/resetPass/${id}`, {...passwords});
+      alert(res.data.msg);
+      window.location.href = "/";
+    } catch (err) {
+      alert(err.response.data.msg);
     }
-  }
+  };
 
   return (
     <div style={{ textAlign: 'center' }}>
@@ -36,14 +37,20 @@ function ResetPasswordPage() {
         <div style={{ marginBottom: '1rem', padding: '1rem' }}>
           <input
             type="password"
+            name="newPassword"
             placeholder="New Password"
+            value={passwords.newPassword}
+            onChange={handlePasswordChange}
             style={{ padding: '5px', width: '100%', boxSizing: 'border-box' }}
           />
         </div>
         <div style={{ marginBottom: '1rem', padding: '1rem' }}>
           <input
             type="password"
+            name="newconfirmPassword"
             placeholder="Confirm Password"
+            value={passwords.newconfirmPassword}
+            onChange={handlePasswordChange}
             style={{ padding: '5px', width: '100%', boxSizing: 'border-box' }}
           />
         </div>

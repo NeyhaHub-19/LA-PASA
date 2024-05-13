@@ -124,7 +124,7 @@ router.post("/login", async(req,res)=>{
                 return res.json({refreshtoken, accesstoken, msg:"Logged in successfully"}); 
                 }
             }else{
-                return res.status(400).json("Incorrect password")
+                return res.status(400).json({msg:"Incorrect password"})
             }
         }catch(err){
             res.json(err.message)
@@ -274,7 +274,7 @@ router.get('/getOneUser/:id', auth, async(req,res)=>{
         return res.status(500).json({msg: err.message})
     }
 })
-router.get('/user/:userId/cart', auth,authAdmin, async(req,res)=>{
+router.get('/user/:userId/cart', async(req,res)=>{
     try{
         const user = await User.findById(req.params.userId);
         if (!user) {
@@ -316,7 +316,7 @@ router.post('/reset-password', async (req, res) => {
                     token: crypto.randomBytes(32).toString('hex')
                 }).save()
 
-                const url = `http://localhost:8000/api/reset-password/${existingUser._id}/reset/${tokens.token}`
+                const url = `${process.env.BASE_URL}api/reset-password/${existingUser._id}/reset/${tokens.token}`
                 console.log(url)
 
                 const mailOptions={
@@ -350,53 +350,56 @@ router.post('/reset-password', async (req, res) => {
     }
 })
 
-router.post('/reset-password/:id/reset/:token', async(req,res)=>{
-try{
-    const {newPassword, newconfirmPassword} = req.body
-    if(newPassword===newconfirmPassword){
-        const hashPassword = bcrypt.hashSync(newPassword,12);
-        const hashConfirmPassword = bcrypt.hashSync(newconfirmPassword,12);
-
+router.get('/reset-password/:id/reset/:token', async(req,res)=>{
+    try{
         const user = await User.findById(req.params.id)
         if(!user){
-            return res.status(400).json({message: "Invalid user link"})
+            return res.status(400).json({message: "Invalid reset link"})
         }
 
-            const token = await ResetPassToken.findOne({userId: req.params.id, token: req.params.token})
-            if(!token){
-                return res.status(400).json({message: "Invalid token link"})
-            }
+        const token = await ResetPassToken.findOne({userId: req.params.id, token: req.params.token})
+        if(!token){
+            return res.status(400).json({message: "Invalid reset token"})
+        }
 
-            await ResetPassToken.deleteOne({_id: token._id})
+        await ResetPassToken.deleteOne({_id: token._id})
+        return res.status(200).json("reset pass token found")
 
-            await User.findByIdAndUpdate(req.params.id, {password: hashPassword, confirmPassword: hashConfirmPassword})
-            res.status(200).json("Password reset successfully")
-    }else{
-        return res.status(400).json({msg: "Password and confirmPassword does not match"})
+    }catch(err){
+        console.error("Error verifying email:", err.message)
+        console.error("Error stack trace:", err.stack)
+        res.status(500).json({ message: "Internal Server Error", error: err.message })
+
     }
-
-
-    
-}catch(err){
-    console.error("Error verifying email:", err.message)
-    console.error("Error stack trace:", err.stack)
-    res.status(500).json({ message: "Internal Server Error", error: err.message })
-
-}
 })
 
-router.get('/resetToken/:userId', async (req, res) => {
-    try {
-        const token = await ResetPassToken.findOne({ userId: req.params.userId });
-        if (!token) {
-            return res.status(404).json({ msg: 'User reset token not found' });
-        }
-        return res.status(200).json(token);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ msg: 'Server Error' });
+router.post('/resetPass/:id', async(req,res)=>{
+
+    try{
+        const {newPassword, newconfirmPassword} = req.body
+        if(newPassword===newconfirmPassword){
+            const hashPassword = bcrypt.hashSync(newPassword,12);
+            const hashConfirmPassword = bcrypt.hashSync(newconfirmPassword,12);
+            const user = await User.findById(req.params.id)
+            if(!user){
+            return res.status(400).json({message: "User not found"})
+            }
+
+                await User.findByIdAndUpdate(req.params.id, {password: hashPassword, confirmPassword: hashConfirmPassword})
+                return res.status(200).json({msg:"Password reset successfully"})
+        }else{
+            return res.status(400).json({msg: "Password and confirmPassword does not match"})
+        } 
+    }catch(err){
+        console.error("Error verifying email:", err.message)
+        console.error("Error stack trace:", err.stack)
+        res.status(500).json({ message: "Internal Server Error", error: err.message })
+
     }
-});
+})
+
+
+
 
 
 

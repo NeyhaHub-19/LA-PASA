@@ -13,6 +13,7 @@ const UserRow = styled.div`
   align-items: center;
   padding: 10px;
   border-bottom: 1px solid #ccc;
+  
 `;
 
 const ActionButton = styled.button`
@@ -32,6 +33,9 @@ const HeaderRow = styled(UserRow)`
   font-weight: bold;
 `;
 
+const ProfilePic=styled.img` 
+  object-fit: cover;
+`
 function UserList() {
   const state = useContext(GlobalState);
   const [users, setUsers] = state.allUsersAPI.allUsers;
@@ -56,17 +60,17 @@ function UserList() {
       
       {users.map(user => (
         <UserRow key={user._id}>
-          <img src={user.image.url} alt=''/>
+          <ProfilePic src={user.image.url} alt='' style={{width:'180px',height:'150px', borderRadius:'20px'}}/>
           <span>{user.username}</span>
           <span>{user.email}</span>
           <span>{new Date(user.createdAt).toLocaleString()}</span>
           <span>{new Date(user.updatedAt).toLocaleString()}</span>
           <div>
             <Link to={`/updateUser/${user._id}`}>
-            <ActionButton style={{ backgroundColor: 'blue', color: 'white' }}>Edit</ActionButton>
+            <ActionButton style={{ backgroundColor: 'teal', color: 'white' }}>Edit</ActionButton>
             </Link>
-            <Link to="/cart">
-            <ActionButton style={{ backgroundColor: 'red', color: 'white' }}>View Cart</ActionButton>
+            <Link to={`/user/${user._id}/cart`}>
+            <ActionButton style={{ backgroundColor: '#333', color: 'white' }}>View Cart</ActionButton>
             </Link>
           </div>
         </UserRow>

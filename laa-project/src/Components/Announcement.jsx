@@ -4,7 +4,9 @@ import './Announcement.css'
 const Announcement = () => {
   return (
     <div className='container'>
- Super Deal! Get Free Shipping OVER RS. 2000 |-
+ 
+ 
+ Fresh From Farm To Consumers At Best Deal !!
      
 
     </div>
