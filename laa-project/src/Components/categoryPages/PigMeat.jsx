@@ -5,6 +5,14 @@ import axios from 'axios'
 import Announcement from '../Announcement'
 import Navbar from '../Navbar'
 import { Footer } from '../Footer'
+import styled from 'styled-components'
+
+const FooterContainer=styled.footer`
+padding:70px 0px;
+width:100%;
+padding-bottom:0px;
+`;
+
 
 function PigMeat() {
     const [loading, setLoading] = useState(false)
@@ -51,7 +59,10 @@ function PigMeat() {
         })
       }
     </div>
-    <Footer/>
+    <FooterContainer>
+      <Footer/>
+    </FooterContainer>
+   
     </>
   )
 }

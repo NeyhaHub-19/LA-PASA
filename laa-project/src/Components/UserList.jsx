@@ -2,9 +2,13 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { GlobalState } from '../GlobalState';
 import { Link } from 'react-router-dom';
+import Announcement from './Announcement';
+import Navbar from './Navbar';
+import { Footer } from './Footer';
 
 const ListContainer = styled.div`
   border: 1px solid #ccc;
+  padding:20px;
 `;
 
 const UserRow = styled.div`
@@ -35,7 +39,14 @@ const HeaderRow = styled(UserRow)`
 
 const ProfilePic=styled.img` 
   object-fit: cover;
-`
+`;
+
+const FooterContainer=styled.footer`
+padding:70px 0px;
+width:100%;
+padding-bottom:0px;
+`;
+
 function UserList() {
   const state = useContext(GlobalState);
   const [users, setUsers] = state.allUsersAPI.allUsers;
@@ -48,6 +59,9 @@ function UserList() {
   }
 
   return (
+    <>
+    <Announcement/>
+    <Navbar/>
     <ListContainer>
       <HeaderRow>
         <span>Profile Pic</span>
@@ -76,6 +90,10 @@ function UserList() {
         </UserRow>
       ))}
     </ListContainer>
+    <FooterContainer>
+    <Footer/>
+    </FooterContainer>
+    </>
   );
 }
 

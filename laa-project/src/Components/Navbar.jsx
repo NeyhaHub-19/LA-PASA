@@ -32,10 +32,9 @@ const Wrapper = styled.div`
 `)}
 `;
 
-const StyledLinkItem = styled.li`
-  list-style: none; 
+const StyledLink = styled(Link)`
+  list-style: none;
   margin-right: 25px;
-  
 `;
 
 const Left = styled.div`
@@ -44,19 +43,7 @@ const Left = styled.div`
   align-items: center;
 `;
 
-const SearchContainer = styled.div`
-  border: 0.5px solid lightgray;
-  display: flex;
-  align-items: center;
-  margin-left: 10px;
-  padding: 5px;
-  top:-5px;
 
-  ${mobile(`
-  margin-left: -10px; 
-`)}
-  
-`;
 
 const Input = styled.input`
   border: none;
@@ -92,7 +79,7 @@ const Right = styled.div`
 `;
 
 const MenuItem = styled.div`
-  font-size: 14px;
+  font-size: 18px;
   cursor: pointer;
   margin-left: 25px;
   margin-right: 25px;
@@ -117,8 +104,9 @@ const Navbar = () => {
   const adminRouter = () =>{
     return (
       <>
-      <StyledLinkItem><Link>Add Products</Link></StyledLinkItem>
-      <StyledLinkItem><Link>Categories</Link></StyledLinkItem>
+      <StyledLink><Link to={'/allUsers'}>Users</Link></StyledLink>
+      <StyledLink><Link to={'/create_product'}>Products</Link></StyledLink>
+      <StyledLink><Link to={'/category'}>Categories</Link></StyledLink>
       </>
     )
   }
@@ -126,9 +114,10 @@ const Navbar = () => {
   const loggedRouter = () =>{
     return(
       <>
-      <StyledLinkItem><Link to={`/user/profile/${id}`}>Profile</Link></StyledLinkItem>
-      <StyledLinkItem><Link to="/" onClick={logoutUser}>Logout</Link></StyledLinkItem>
-      <StyledLinkItem><a href='mailto:nehneh0719@gmail.com'>Contact Us</a></StyledLinkItem>
+      <StyledLink><a href='mailto:nehneh0719@gmail.com' style={{color:'inherit'}}>Contact </a></StyledLink>
+      <StyledLink><Link to={`/user/profile/${id}`}>Profile</Link></StyledLink>
+      <StyledLink><Link to="/" onClick={logoutUser}>Logout</Link></StyledLink>
+      
       </>
     )
   }
@@ -144,7 +133,8 @@ const Navbar = () => {
         <Right>
           
             <>
-              <MenuItem>{isAdmin? 'Users':'Home'}</MenuItem>
+            <MenuItem><StyledLink to={'/'}>Home</StyledLink></MenuItem>
+            <MenuItem><StyledLink to={'/recipes'}>Recipes</StyledLink></MenuItem>
               {
                 isAdmin && adminRouter()}{
                   isLogged?loggedRouter():

@@ -6,6 +6,17 @@ import { useParams } from 'react-router-dom';
 import Announcement from './Announcement';
 import Navbar from './Navbar';
 import { Footer } from './Footer';
+import styled from 'styled-components';
+
+
+
+
+
+const FooterContainer=styled.footer`
+padding:70px 0px;
+width:100%;
+padding-bottom:0px;
+`;
 
 const intialState = {
     username : '',
@@ -142,7 +153,9 @@ function UpdateUser() {
             <button type='submit'>Update</button>
             </form>
         </div>
+        <FooterContainer>
         <Footer/>
+        </FooterContainer>
            
         </>
     );

@@ -6,6 +6,15 @@ import Loading from '../../utils/loading/Loading';
 import Navbar from '../../Navbar';
 import Announcement from '../../Announcement';
 import { Footer } from '../../Footer';
+import styled from 'styled-components';
+
+
+const FooterContainer=styled.footer`
+padding:70px 0px;
+width:100%;
+padding-bottom:0px;
+`;
+
 
 const intialState = {
     product_id: '',
@@ -197,7 +206,9 @@ function CreateProduct(){
             <button type='submit'>{onEdit? "Update" : "Create"}</button>
             </form>
         </div>
+        <FooterContainer>
         <Footer/>
+        </FooterContainer>
         </>
     )
 

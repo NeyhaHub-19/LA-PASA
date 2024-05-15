@@ -3,6 +3,9 @@ import axios from "axios";
 import { GlobalState } from "../../../GlobalState";
 import { useParams } from "react-router-dom";
 import Loading from "../../utils/loading/Loading";
+import Announcement from "../../Announcement";
+import Navbar from "../../Navbar";
+import { Footer } from "../../Footer";
 
 const initialState = {
     title: '',
@@ -139,6 +142,10 @@ function CreateRecipe(){
     }
 
     return(
+        <>
+        <Announcement/>
+        <Navbar/>
+        
         <div className="create_product">
             <div className="upload">
                 <input type="file" name="file" id="file_up" onChange={handleUpload}/>
@@ -167,6 +174,8 @@ function CreateRecipe(){
                 <button type='submit'>{onEdit? "Update": "Create"}</button>
             </form>
         </div>
+        <Footer/>
+        </>
     )
 }
 

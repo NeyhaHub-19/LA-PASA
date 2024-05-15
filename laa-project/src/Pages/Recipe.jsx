@@ -4,6 +4,9 @@ import { GlobalState } from '../GlobalState';
 import Loading from '../Components/utils/loading/Loading';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Announcement from '../Components/Announcement';
+import Navbar from '../Components/Navbar';
+import { Footer } from '../Components/Footer';
 
 // Styled components
 const Container = styled.div`
@@ -154,9 +157,12 @@ const Recipe = () => {
 
   if (loading) return <div><Loading/></div>
   return (
+    <>
+    <Announcement/>
+    <Navbar/>
     <Container>
        <AddRecipeButtonContainer>
-        <AddRecipeButton to="/add_recipe">Add Recipe</AddRecipeButton>
+        <AddRecipeButton to="/create_recipe">Add Recipe</AddRecipeButton>
         </AddRecipeButtonContainer>
       {recipes.map(recipe => (
         <VideoContainer key={recipe._id}>
@@ -173,6 +179,8 @@ const Recipe = () => {
         </VideoContainer>
       ))}
     </Container>
+    <Footer/>
+    </>
   );
 };
 

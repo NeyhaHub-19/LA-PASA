@@ -4,6 +4,9 @@ import { GlobalState } from "../../GlobalState";
 import Loading from "../utils/loading/Loading";
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import Announcement from '../Announcement';
+import Navbar from '../Navbar';
+import { Footer } from '../Footer';
 
 const MainContainer = styled.div`
     background-color: beige; 
@@ -82,7 +85,15 @@ const EditButton = styled.button`
 
 const RightContainer = styled.div`
     margin-top: 20px; /* Add margin to the top */
+
 `;
+
+const FooterContainer=styled.footer`
+padding:70px 0px;
+width:100%;
+padding-bottom:0px;
+`;
+
 
 const intialState = {
     username: '',
@@ -133,6 +144,9 @@ function UserProfile() {
     
 
     return (
+        <>
+        <Announcement/>
+        <Navbar/>
         <MainContainer>
             <ProfileTitle>Profile</ProfileTitle> {/* Display title on left */}
             <LeftContainer>
@@ -163,6 +177,10 @@ function UserProfile() {
                 </EditButton>
             </RightContainer>
         </MainContainer>
+        <FooterContainer>
+        <Footer />
+        </FooterContainer>
+        </>
     );
 }
 

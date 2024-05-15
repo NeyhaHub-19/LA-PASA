@@ -79,7 +79,7 @@ const CategoryItem = ({ item }) => {
           <Info>
             <Title>{title}</Title>
             {/* Link button to the video page */}
-            <Link to={`/recipes/${recipe}/video`}>
+            <Link to={`/recipes`}>
               <Button>WATCH RECIPE</Button>
             </Link>
           </Info>

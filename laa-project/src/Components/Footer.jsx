@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Facebook, Instagram, MailOutline, Phone, Room } from '@mui/icons-material';
 import React from 'react';
 import { mobile } from '../responsive';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -9,6 +10,7 @@ const Container = styled.div`
   color: white; // White text for contrast
   ${mobile`
     flex-direction: column;
+    background-color: #008080;
   `}
 `;
 
@@ -41,7 +43,10 @@ const SocialIcon = styled.div`
   margin-right: 20px;
 `;
 
+
+
 const Center = styled.div`
+
   flex: 1;
   padding: 20px;
   ${mobile`
@@ -49,11 +54,13 @@ const Center = styled.div`
   `}
 `;
 
-const Title = styled.h3``; // Text is already set to inherit white color from Container
+const Title = styled.h3`
+`;
+ // Text is already set to inherit white color from Container
 
 const List = styled.ul`
   margin: 0;
-  padding: 0;
+  padding:10px;
   list-style: none;
   display: flex;
   flex-wrap: wrap;
@@ -76,11 +83,18 @@ const ContactItem = styled.div`
   margin-bottom: 20px;
   display: flex;
   align-items: center;
+  padding :10px;
 `;
 
-const Payment = styled.img`
-  width: 50%;
+const StyledLink= styled(Link)`
+  color: inherit;
+  text-decoration: none;
+  &:hover {
+    color: inherit;
+    text-decoration: none;
+  }
 `;
+
 
 export const Footer = () => {
   return (
@@ -88,10 +102,7 @@ export const Footer = () => {
       <Left>
         <Logo>LA_PASA.</Logo>
         <Desc>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis
-          modi consequuntur explicabo perferendis ab quasi laborum nisi fuga.
-          Sapiente eligendi quasi voluptatum, exercitationem est ratione
-          perspiciatis aspernatur vitae placeat quibusdam.
+        La Pasa offers a convenient online platform for meat enthusiasts to access high-quality, fresh meats delivered straight from the farm to their doorstep. Our mission is to provide discerning consumers with an unparalleled meat shopping experience, ensuring they enjoy the finest cuts and products with every order
         </Desc>
         <SocialContainer>
           <SocialIcon color="3B5999">
@@ -105,21 +116,21 @@ export const Footer = () => {
       <Center>
         <Title>Useful Links</Title>
         <List>
-          <ListItem>Home</ListItem>
-          <ListItem>Cart</ListItem>
-          <ListItem>Pork</ListItem>
-          <ListItem>Chicken</ListItem>
-          <ListItem>Frozen Products</ListItem>
-          <ListItem>Recipe</ListItem>
-          <ListItem>My Account</ListItem>
-          <ListItem>Contact Us</ListItem>
-          <ListItem>About Us</ListItem>
+          <ListItem><StyledLink to={"/"}>Home</StyledLink></ListItem>
+          <ListItem><StyledLink to={"/cart"}>Cart</StyledLink></ListItem>
+          <ListItem><StyledLink to={"/products/pork"}>Pork</StyledLink></ListItem>
+          <ListItem><StyledLink to={"/products/chicken"}>Chicken</StyledLink></ListItem>
+          <ListItem><StyledLink to={"/products/frozen products"}>Frozen Products</StyledLink></ListItem>
+          <ListItem><StyledLink to={"/recipes"}>Recipe</StyledLink></ListItem>
+          <ListItem><StyledLink to={"/user/profile/:id"}>My Account</StyledLink></ListItem>
+          {/* <ListItem><Link>Contact Us</Link></ListItem> */}
+          <ListItem><StyledLink>About Us</StyledLink></ListItem>
         </List>
       </Center>
       <Right>
         <Title>Contact</Title>
         <ContactItem>
-          <Room style={{ marginRight: "10px" }} />
+          <Room style={{ marginRight: "10px"}} />
           Thati Tole, Lagankhel || Falful Chowk, Kathmandu.
         </ContactItem>
         <ContactItem>
